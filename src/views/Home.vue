@@ -7,11 +7,19 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import client from '@/lib/client';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
 @Component({
   components: {
     HelloWorld,
+  },
+  async created() {
+    try {
+      await client.reAuthenticate();
+    } catch (err) {
+      console.log(err.name);
+    }
   },
 })
 export default class Home extends Vue {}
